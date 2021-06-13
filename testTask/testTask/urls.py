@@ -6,11 +6,11 @@ from rest_framework.routers import SimpleRouter
 from user_api.views import UserViewSet
 
 router = SimpleRouter()
-router.register('api/v1/users', UserViewSet, basename='api-users')
+router.register('api/v1/users', UserViewSet, basename='api-users') #Регистрируем юрлы для viewset через простой роутер из базовой джанги
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api-get-token', obtain_auth_token, name='auth-token'),
 ]
 
-urlpatterns += router.urls
+urlpatterns += router.urls #сгенерированные юрлы добавляем в базовый список юрлов urlpatterns

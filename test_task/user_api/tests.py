@@ -1,10 +1,8 @@
 from django.contrib.auth.models import User
-from django.http import Http404
 from rest_framework import status
-from rest_framework.generics import get_object_or_404
 from rest_framework.reverse import reverse
 from rest_framework.test import APITestCase
-from .serializers import ReadOnlyUserSerializer, WriteOnlyUserSerializer
+from .serializers import ReadOnlyUserSerializer
 
 
 class FilmViewsTest(APITestCase):
@@ -37,7 +35,7 @@ class FilmViewsTest(APITestCase):
         )
 
     def test_post_user(self):
-        #тестируется создание юзера
+        # тестируется создание юзера
         self.client.post(
             reverse("api-users-list"),
             data={'username': 'user3',
@@ -46,8 +44,8 @@ class FilmViewsTest(APITestCase):
 
         self.assertEquals(len(User.objects.all()), 4)
 
-    def test_patch_user(self)
-        #тестим обновление данных юзера
+    def test_patch_user(self):
+        # тестим обновление данных юзера
         token = self.client.post(reverse("auth-token"), {"username": "user2", "password": "password2"}).data['token']
         self.client_class.credentials(self.client, HTTP_AUTHORIZATION='Token ' + token)
         self.client.patch(
@@ -59,7 +57,7 @@ class FilmViewsTest(APITestCase):
         self.assertEquals(new_username, 'user22')
 
     def test_delete_user(self):
-        #тестим удаление юзера
+        # тестим удаление юзера
         token = self.client.post(reverse("auth-token"), {"username": "admin", "password": "password"}).data['token']
         self.client_class.credentials(self.client, HTTP_AUTHORIZATION='Token ' + token)
         response = self.client.delete(
